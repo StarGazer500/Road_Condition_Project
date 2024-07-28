@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    volumes:
+    volumes:s
       - static:/app/build
     ports:
       - $FRONTEND_PORT:3000
