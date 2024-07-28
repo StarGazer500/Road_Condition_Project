@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'Road_Condition_Project.wsgi.application'
 DATABASES = {
     "default": {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'road-proj-db',  # Name of your spatial database
+        'NAME': 'postgres',  # Name of your spatial database
         'USER': 'postgres',   # Database user
         'PASSWORD': '0549Martin?',# Database password
-        'HOST': 'http://road-proj-db.c7w86sqaqx28.eu-north-1.rds.amazonaws.com',
+        'HOST': '35.223.255.187',
         'PORT': '5432',
     }
 }
