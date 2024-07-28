@@ -26,15 +26,15 @@ if os.name == 'nt':
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+2z*3z-o7kh4=6$n0ea+$9@kr*_a*im-vf4&zsq5i-o(76i(le'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
 
-ALLOWED_HOSTS = ["http://13.51.86.142","13.51.86.142","127.0.0.1","localhost"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
-
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
 
 # Application definition
 
@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'Road_Condition_Project.wsgi.application'
 DATABASES = {
     "default": {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'postgres',  # Name of your spatial database
-        'USER': 'postgres',   # Database user
-        'PASSWORD': '0549Martin?',# Database password
-        'HOST': '35.223.255.187',
-        'PORT': '5432',
+        'NAME': os.environ.get("POSTGRES_DB"),  # Name of your spatial database
+        'USER': os.environ.get( "POSTGRES_USER"),   # Database user
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),# Database password
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("POSTGRES_PORT"),
     }
 }
 
