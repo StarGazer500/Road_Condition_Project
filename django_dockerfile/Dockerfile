@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 # Update and install necessary packages
 RUN apt update && apt upgrade -y && \
-    apt install -y python3 python3-venv python3-pip gdal-bin python3-gdal && \
+    apt install -y python3 python3-venv python3-pip gdal-bin python3-gdal postgresql-client && \
     apt autoremove -y && \
     apt clean
 
