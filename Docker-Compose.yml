@@ -3,40 +3,46 @@ version: '3'
 services:
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: /app
+      dockerfile: /app/django_dockerfile/Dockerfile
     env_file:
-      - ./.env
+      - /app/Road_Condition_Project.env
     volumes:
-      - static:/app/static
+      - media:/app/Road_Condition_Project/media
+      - staticfiles:/app/Road_Condition_Project/staticfiles
       - /var/run/gunicorn.sock:/var/run/gunicorn.sock
       - /var/run/websocket.sock:/var/run/websocket.sock
-    depends_on:
-      - db
+    ports:
+      - 8000:8000
     restart: unless-stopped
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    volumes:s
-      - static:/app/build
+      context: /app
+      dockerfile: /app/react_dockerfile/Dockerfile
+    volumes:
+      - /app/build:/app/build
     ports:
-      - $FRONTEND_PORT:3000
+      - 3000:3000
     restart: unless-stopped
 
   nginx:
-    build: ./nginx
+    build:
+      context: /nginx
+      dockerfile: ./nginx/Dockerfile
     volumes:
-      - static:/static
+      - staticfiles:/app/Road_Condition_Project/staticfiles
+      - /app/build:/app/build
+      - media:/app/Road_Condition_Project/media
       - /var/run/gunicorn.sock:/var/run/gunicorn.sock
       - /var/run/websocket.sock:/var/run/websocket.sock
     ports:
-      - $NGINX_PORT:$NGINX_PORT
+      - 80:80
     depends_on:
       - backend
       - frontend
     restart: unless-stopped
 
 volumes:
-  static:
+  staticfiles:
+  media:

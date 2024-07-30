@@ -4,9 +4,9 @@ services:
   backend:
     build:
       context: /app
-      dockerfile: ./django_dockerfile/Dockerfile
+      dockerfile: /app/django_dockerfile/Dockerfile
     env_file:
-      - ./backend/.env
+      - /app/Road_Condition_Project.env
     volumes:
       - media:/app/Road_Condition_Project/media
       - staticfiles:/app/Road_Condition_Project/staticfiles
@@ -19,7 +19,7 @@ services:
   frontend:
     build:
       context: /app
-      dockerfile: ./react_dockerfile/Dockerfile
+      dockerfile: /app/react_dockerfile/Dockerfile
     volumes:
       - /app/build:/app/build
     ports:
