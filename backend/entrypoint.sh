@@ -6,6 +6,13 @@ set -e
 # Activate the virtual environment
 source /app/venv/bin/activate
 
+export PYTHONPATH=/app/Road_Condition_Project
+
+echo $PYTHONPATH
+# Set environment variable for Django settings module
+export DJANGO_SETTINGS_MODULE=Road_Condition_Project.settings
+
+
 # Wait for the database to be ready
 until pg_isready -h $DB_HOST -p $POSTGRES_PORT -U $POSTGRES_USER; do
   echo "Waiting for database..."
@@ -13,9 +20,9 @@ until pg_isready -h $DB_HOST -p $POSTGRES_PORT -U $POSTGRES_USER; do
 done
 
 # Apply database migrations
-python manage.py migrate --noinput
-python manage.py collectstatic --noinput
-python manage.py createcachetable
+python ./Road_Condition_Project/manage.py migrate --noinput
+python ./Road_Condition_Project/manage.py collectstatic --noinput
+python ./Road_Condition_Project/manage.py createcachetable
 
 
 # Start Gunicorn with the specified configuration
