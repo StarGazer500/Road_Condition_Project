@@ -1,18 +1,6 @@
-# Use the official Ubuntu base image
-FROM ubuntu:24.04
-
-
+FROM node:14 AS build
 # Set the working directory
 WORKDIR /app
-
-
-# Install Node.js and npm
-RUN apt update && apt install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt install -y nodejs && \
-    apt autoremove -y && \
-    apt clean
-
 
 # Copy the package.json and package-lock.json into the container
 COPY ./package*.json /app/
@@ -26,6 +14,25 @@ COPY . /app/
 # Build the React application
 RUN npm run build
 
-# Expose the port the app runs on
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+
+# Copy built files from the previous stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy Nginx configuration file
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Command to run Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
 EXPOSE 3000
+
+# Command to run Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
+
 

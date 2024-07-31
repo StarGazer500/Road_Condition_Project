@@ -21,7 +21,7 @@ services:
       context: ./frontend
       dockerfile: ./react_dockerfile/Dockerfile
     volumes:
-      - /app/build:/usr/share/nginx/html
+      - ./frontend/build:/app/build
     ports:
       - 3000:3000
     restart: unless-stopped
@@ -30,8 +30,8 @@ services:
     build: ./nginx
     volumes:
       - staticfiles:/app/Road_Condition_Project/staticfiles
-      - /app/build:/usr/share/nginx/html
       - media:/app/Road_Condition_Project/media
+      - ./frontend/build:/usr/share/nginx/html
     ports:
       - 80:80
     depends_on:
