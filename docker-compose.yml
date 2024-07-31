@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
 
   nginx:
-    build: ./nginx
+    image: nginx:latest
     volumes:
       - staticfiles:/app/Road_Condition_Project/staticfiles
       - media:/app/Road_Condition_Project/media
