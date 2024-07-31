@@ -16,16 +16,11 @@ services:
       - 8000:8000
     restart: unless-stopped
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: ./react_dockerfile/Dockerfile
-    ports:
-      - 3000:3000
-    restart: unless-stopped
 
   nginx:
-    image: nginx:latest
+    build:
+      context: ./frontend
+      dockerfile: .ngi/react_dockerfile/Dockerfile
     volumes:
       - staticfiles:/app/Road_Condition_Project/staticfiles
       - media:/app/Road_Condition_Project/media
