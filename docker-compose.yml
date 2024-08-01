@@ -20,7 +20,7 @@ services:
   nginx:
     build:
       context: ./frontend
-      dockerfile: .ngi/react_dockerfile/Dockerfile
+      dockerfile: ./react_dockerfile/Dockerfile
     volumes:
       - staticfiles:/app/Road_Condition_Project/staticfiles
       - media:/app/Road_Condition_Project/media
@@ -28,7 +28,6 @@ services:
       - 80:80
     depends_on:
       - backend
-      - frontend
     restart: unless-stopped
 
 volumes:
