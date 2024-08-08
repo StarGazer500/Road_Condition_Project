@@ -7,10 +7,10 @@ services:
       dockerfile: ./django_dockerfile/Dockerfile         
 
     env_file:
-      - ./backend/Road_Condition_Project/.env
+      - ./backend/Road_Condition_Project/.env.prod
     volumes:
-      - media:/app/Road_Condition_Project/media
-      - staticfiles:/app/Road_Condition_Project/staticfiles
+      - media:/app/Road_Condition_Project/Road_Condition_Project/media
+      - staticfiles:/app/Road_Condition_Project/Road_Condition_Project/staticfiles
       
     ports:
       - 8000:8000
@@ -22,8 +22,8 @@ services:
       context: ./frontend
       dockerfile: ./react_dockerfile/Dockerfile
     volumes:
-      - staticfiles:/app/Road_Condition_Project/staticfiles
-      - media:/app/Road_Condition_Project/media
+      - staticfiles:/app/Road_Condition_Project/Road_Condition_Project/staticfiles
+      - media:/app/Road_Condition_Project/Road_Condition_Project/media
     ports:
       - 80:80
     depends_on:

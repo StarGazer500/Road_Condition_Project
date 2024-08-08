@@ -8,10 +8,11 @@ source /app/venv/bin/activate
 
 export PYTHONPATH=/app/Road_Condition_Project
 
-echo $PYTHONPATH
-# Set environment variable for Django settings module
-export DJANGO_SETTINGS_MODULE=Road_Condition_Project.settings
 
+# Set environment variable for Django settings module
+export DJANGO_SETTINGS_MODULE=Road_Condition_Project.core_settings.production
+
+export DJANGO_ENV=.env.prod 
 
 # Wait for the database to be ready
 until pg_isready -h $DB_HOST -p $POSTGRES_PORT -U $POSTGRES_USER; do

@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Road_Condition_Project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Road_Condition_Project.core_settings.development')
 
 application = get_wsgi_application()

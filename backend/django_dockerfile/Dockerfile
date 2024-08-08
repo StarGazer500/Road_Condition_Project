@@ -1,18 +1,18 @@
-# Use the official Ubuntu base image
-FROM ubuntu:24.04
+# Use a smaller base image
+FROM python:3.11.8
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Update and install necessary packages
-RUN apt update && apt upgrade -y && \
-    apt install -y python3 python3-venv python3-pip gdal-bin python3-gdal postgresql-client && \
-    apt autoremove -y && \
-    apt clean
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gdal-bin python3-gdal postgresql-client && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # Copy the requirements file into the container
@@ -21,7 +21,8 @@ COPY ./requirements.txt /app/
 # Install Python packages specified in requirements.txt
 RUN python3 -m venv venv && \
     . venv/bin/activate && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 # Copy the rest of the application code into the container
 COPY . /app/

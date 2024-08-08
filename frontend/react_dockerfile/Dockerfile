@@ -1,4 +1,4 @@
-FROM node:14 AS build
+FROM node:21.7.1 AS build
 # Set the working directory
 WORKDIR /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 COPY ./package*.json /app/
 
 # Install dependencies
-RUN npm install
+RUN npm install --no-cache
 
 # Copy the rest of the application code into the container
 COPY . /app/
